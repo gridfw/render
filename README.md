@@ -15,6 +15,14 @@ Inside your config file (or any other configuration method), add the following:
 }
 ```
 
+The plugin expects all views are precompiled (This for performance purpose).
+To compile your views, see Gridfw-compiler for more information on how to do it.
+
+## Supported engines:
+You need to precompile your views. @see Gridfw-compiler for supported render engines.
+We support: pug, ejs, template, ...
+You can add your custom render too.
+
 ## Options:
 We recommande to keep default values for all options (do not set any option). Keeping "convention over configuration" will keep your life easy ;)
 
@@ -30,30 +38,11 @@ plugins:
 # <!> The default behaviour is recommanded for most cases. Do not set this option.
 ```
 
-### Engines:
-A set of render engines.
-By default we use pug as render engine.
-The framework will guess the engine to use depending on existing files in your view directory.
-You can override the set of engines with this option:
-
-Example:
-```coffeescript
-plugins:
-	views:
-		require: 'gridfw-view-render'
-		engines:
-			# <extension> : <renderEngine>
-			'pug': require('pug')
-			'ejs': require('ejs')
-
-```
-You Can use your custom view render by implementing a "compile" method like other engines.
-
 ### dir:
 String or List of strings
-Contains paths to view directory inside your project
+Contains paths to views directory inside your project
 
-This options contains by default "./views". We recommande to keep this convention and put your views inside a "views" directory inside the root of your project instead of setting this option.
+This options contains by default "./views". We recommande to keep this convention and put your views inside it.
 
 Example:
 ```coffeescript
@@ -66,3 +55,7 @@ plugins:
 		# @default value: './views'
 
 ```
+
+### cache
+By default, this is set to "false" in dev mode.
+In production mode, the app will do the best to fit available memory and have maxumum of performance. You maybe will not need to change this.
