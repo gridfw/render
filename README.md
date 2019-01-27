@@ -26,18 +26,6 @@ You can add your custom render too.
 ## Options:
 We recommande to keep default values for all options (do not set any option). Keeping "convention over configuration" will keep your life easy ;)
 
-### Pretty
-Show the HTML, JSON, XML, ... in pretty format
-By default: true in dev mode, false in production
-Recommanded to keep default behaviour
-```coffeescript
-plugins:
-	views:
-		require: 'gridfw-view-render'
-		pretty: false # @default: true in dev mode, false in production
-# <!> The default behaviour is recommanded for most cases. Do not set this option.
-```
-
 ### dir:
 String or List of strings
 Contains paths to views directory inside your project
