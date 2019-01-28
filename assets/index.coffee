@@ -11,6 +11,17 @@ class Render
 	 * Reload parser
 	###
 	reload: (settings)->
+		# empty render cache
+		#TODO
+		app.debug 'VIEWS', 'Empty view cache'
+		if appSettings[<%= settings.viewCache %>]
+			if app[VIEW_CACHE]
+				app[VIEW_CACHE].clear()
+			else
+				app[VIEW_CACHE] = new LRUCache
+					max: appSettings[<%= settings.viewCacheMax %>]
+		else
+			app[VIEW_CACHE] = null
 		# enable
 		@enable()
 		return
