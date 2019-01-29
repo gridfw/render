@@ -4,6 +4,10 @@
 ###
 'use strict'
 
+
+#=include _render.coffee
+#=include _methods.coffee
+
 class Render
 	constructor: (@app)->
 		@enabled = on # the plugin is enabled
