@@ -32,13 +32,19 @@ class Render
 	###*
 	 * destroy
 	###
-	destroy: ->
-		return
+	destroy: -> @disable()
 	###*
 	 * Disable, enable
 	###
-	disable: -> @destroy
+	disable: ->
+		@app.removeProperties
+			Request: REQUEST_PROTO
+			Context: CONTEXT_PROTO
+		return
 	enable: ->
+		@app.addProperties
+			Request: REQUEST_PROTO
+			Context: CONTEXT_PROTO
 		return
 
 module.exports = Render
