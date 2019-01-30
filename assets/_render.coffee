@@ -8,7 +8,12 @@
 ###
 # View cache
 VIEW_CACHE = Symbol 'View cache'
-_render = (app, templatePath, locals)->
+_render = (app, templatePath, locals)-> @app[CACHE_SYMB].get(templatePath) locals
+
+
+
+
+
 	settings = app.s
 	viewCache = app[VIEW_CACHE]
 	# resolve file content
