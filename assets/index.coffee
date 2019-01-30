@@ -4,6 +4,8 @@
 ###
 'use strict'
 
+Cache = require '../cache'
+
 CACHE_SYMB = Symbol 'view cache'
 _DEFAULT_SETTINGS=
 	maxSize: 20 * 2**10 # 20M

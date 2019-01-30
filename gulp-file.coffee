@@ -17,13 +17,13 @@ compileCoffee = ->
 		# template
 		.pipe GfwCompiler.template()
 		# convert to js
-		.pipe coffeescript(bare: true).on 'error', errorHandler
+		.pipe coffeescript(bare: true).on 'error', GfwCompiler.logError
 	# uglify when prod mode
 	if gutil.env.mode is 'prod'
 		glp = glp.pipe uglify()
 	# save 
 	glp.pipe gulp.dest 'build'
-		.on 'error', errorHandler
+		.on 'error', GfwCompiler.logError
 # watch files
 watch = ->
 	gulp.watch ['assets/**/*.coffee'], compileCoffee
