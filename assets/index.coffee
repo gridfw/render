@@ -3,43 +3,23 @@
  * @copyright khalid RAFIK 2019
 ###
 'use strict'
-
-Cache = require '../cache'
-
-CACHE_SYMB = Symbol 'view cache'
-_DEFAULT_SETTINGS=
-	maxSize: 20 * 2**10 # 20M
-	timeout: 10 * 60 * 1000 # 10min
+Path = require 'path'
 
 #=include _utils.coffee
+#=include _settings.coffee
 #=include _render.coffee
-#=include _ctx-methods.coffee
-#=include _app-methods.coffee
 
-# CACHE
-#=include _cache.coffee
 
 class Render
 	constructor: (@app)->
 		@enabled = on # the plugin is enabled
-		# cache
-		@app[CACHE_SYMB] ?= new Cache
-			# when removing item from cache
-			onRemove: (key)-> delete require.cache[require.resolve key]
-			# create element if not already in cache
-			create: (key)-> require key
+		@fxes = null # functions
 	###*
 	 * Reload parser
 	###
 	reload: (settings)->
-		settings ?= _DEFAULT_SETTINGS
-		# empty render cache
-		app.debug 'VIEWS', 'Empty view cache'
-		cache = @app[CACHE_SYMB]
-		cache.clear()
-		# cache params
-		cache.maxSize = 0 # 0 means cache disabled
-		cache.timeout = 0 # 0 means no timeout
+		# load settings
+		_initSettings @app, settings
 		# enable
 		@enable()
 		return
@@ -51,14 +31,20 @@ class Render
 	 * Disable, enable
 	###
 	disable: ->
-		@app.removeProperties
-			Request: REQUEST_PROTO
-			Context: CONTEXT_PROTO
+		@app.removeProperties @fxes if @fxes
 		return
 	enable: ->
-		@app.addProperties
-			Request: REQUEST_PROTO
-			Context: CONTEXT_PROTO
+		# remove previous functions
+		@app.removeProperties @fxes if @fxes
+		# generate functions
+		render = _renderGen @app.CACHE, @s[<% settings.views %>]
+		@fxes =
+			Request:
+				render: render
+			Context:
+				render: render
+		# append
+		@app.addProperties @fxes
 		return
 
 module.exports = Render
