@@ -6,7 +6,7 @@ Inside your config file (or any other configuration method), add the following:
 ```javascript
 {
 	plugins:{
-		views:{
+		render:{
 			require: 'gridfw-view-render'
 			// add options here
 		}
@@ -35,7 +35,7 @@ This options contains by default "./views". We recommande to keep this conventio
 Example:
 ```coffeescript
 plugins:
-	views:
+	render:
 		require: 'gridfw-view-render'
 		dir: 'path/to/views/'
 		# or dir: ['path1/', 'path2/']

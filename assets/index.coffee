@@ -34,17 +34,18 @@ class Render
 		@app.removeProperties @fxes if @fxes
 		return
 	enable: ->
+		app= @app
 		# remove previous functions
-		@app.removeProperties @fxes if @fxes
+		app.removeProperties @fxes if @fxes
 		# generate functions
-		render = _renderGen @app.CACHE, @s[<% settings.views %>]
+		render = _renderGen app.CACHE, app.s[<%= settings.views %>]
 		@fxes =
 			Request:
 				render: render
 			Context:
 				render: render
 		# append
-		@app.addProperties @fxes
+		app.addProperties @fxes
 		return
 
 module.exports = Render
