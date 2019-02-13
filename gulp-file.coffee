@@ -6,11 +6,11 @@ uglify			= require('gulp-uglify-es').default
 rename			= require "gulp-rename"
 coffeescript	= require 'gulp-coffeescript'
 
-GfwCompiler		= require '../compiler'
+GfwCompiler		= require 'gridfw-compiler'
 
 # compile final values (consts to be remplaced at compile time)
 settings=
-	isProd: gutil.env.mode is 'prod'
+	isProd: gutil.env.hasOwnProperty('prod')
 # handlers
 compileCoffee = ->
 	glp = gulp.src 'assets/**/[!_]*.coffee', nodir: true
@@ -27,12 +27,11 @@ compileCoffee = ->
 	glp.pipe gulp.dest 'build'
 		.on 'error', GfwCompiler.logError
 # watch files
-watch = ->
-	gulp.watch ['assets/**/*.coffee'], compileCoffee
+watch = (cb)->
+	unless settings.isProd
+		gulp.watch ['assets/**/*.coffee'], compileCoffee
+	do cb
 	return
 
 # default task
-if settings.isProd
-	gulp.task 'default', gulp.series compileCoffee
-else
-	gulp.task 'default', gulp.series compileCoffee, watch
+gulp.task 'default', gulp.series compileCoffee, watch

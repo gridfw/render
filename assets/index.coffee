@@ -38,12 +38,13 @@ class Render
 		# remove previous functions
 		app.removeProperties @fxes if @fxes
 		# generate functions
-		render = _renderGen app.CACHE, app.s[<%= settings.views %>]
+		render = _renderGenApp app.CACHE, app.s[<%= settings.views %>]
+		ctxRender = _renderGenCtx app.CACHE, app.s[<%= settings.views %>]
 		@fxes =
-			Request:
+			App:
 				render: render
 			Context:
-				render: render
+				render: ctxRender
 		# append
 		app.addProperties @fxes
 		return

@@ -1,6 +1,6 @@
 {
   "name": "gridfw-view-render",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "view render for gridfw",
   "main": "build/index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "cli-table": "^0.3.1",
+    "gridfw-compiler": "^1.0.0",
     "gulp": "^4.0.0",
     "gulp-chug": "^0.5.1",
     "gulp-coffeescript": "0.0.15",

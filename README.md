@@ -47,3 +47,7 @@ plugins:
 ### cache
 By default, this is set to "false" in dev mode.
 In production mode, the app will do the best to fit available memory and have maxumum of performance. You maybe will not need to change this.
+
+
+# Supporters
+[![coredigix](https://www.coredigix.com/img/logo.png)](https://coredigix.com)
