@@ -23,7 +23,13 @@ _renderGen<%=ele %>= (CACHE, viewsPath)->
 			return @send await CACHE.get(path) locals
 			<% } %>
 		catch err
-			err2= new Error "View Error at: #{path}\nCaused by: #{err}"
-			err2.extra= err # cause by
-			throw err2
+			<% if(ele === 'App'){ %>
+			GError = @Error
+			<% } else { %>
+			GError = @app.Error
+			<% } %>
+			if err is 404
+				throw new GError 500, "View not found at: #{path}"
+			else
+				throw new GError 500, "View Error at: #{path}", err
 <% } %>
