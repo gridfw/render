@@ -4,10 +4,12 @@
 ###
 'use strict'
 Path = require 'path'
+Fs	= require 'mz/fs'
 
 #=include _utils.coffee
 #=include _settings.coffee
 #=include _render.coffee
+#=include _load-static-views.coffee
 
 
 class Render
@@ -43,6 +45,7 @@ class Render
 		@fxes =
 			App:
 				render: render
+				loadStaticViews: _loadStaticViews
 			Context:
 				render: ctxRender
 		# append

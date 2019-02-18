@@ -18,6 +18,7 @@ compileCoffee = ->
 		.pipe include hardFail: true
 		# template
 		.pipe GfwCompiler.template(settings).on 'error', GfwCompiler.logError
+		.pipe gulp.dest 'build'
 		# convert to js
 		.pipe coffeescript(bare: true).on 'error', GfwCompiler.logError
 	# uglify when prod mode
