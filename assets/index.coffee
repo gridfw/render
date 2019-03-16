@@ -33,7 +33,7 @@ class Render
 	 * Disable, enable
 	###
 	disable: ->
-		@app.removeProperties @fxes if @fxes
+		@app.removeProperties 'Render', @fxes if @fxes
 		return
 	enable: ->
 		app= @app
@@ -49,7 +49,7 @@ class Render
 			Context:
 				render: ctxRender
 		# append
-		app.addProperties @fxes
+		app.addProperties 'Render', @fxes
 		return
 
 module.exports = Render
