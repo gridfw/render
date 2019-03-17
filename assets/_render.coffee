@@ -6,30 +6,33 @@ var i, ele, eles = ['App', 'Ctx']
 for(i in eles){
 	ele= eles[i];
 %>
-_renderGen<%=ele %>= (CACHE, viewsPath)->
+_renderGen<%=ele %>= (CACHE, viewsPath, GError)->
 	(path, locals)->
 		try
-			# resolve abs path
-			path = Path.resolve viewsPath, path
 			# locals
 			if locals
 				Object.setPrototypeOf locals, @locals
 			else
 				locals = _create @locals
+			# resolve render function
+			try
+				# resolve with local param
+				p1= Path.resolve viewsPath, @i18n.local, path
+				renderFx= await CACHE.get p1
+			catch err
+				# resolve without local
+				throw err unless err is 404 or !ctx.i18n
+				p2= Path.resolve viewsPath, path
+				renderFx= await CACHE.get p2
 			# render
 			<% if(ele === 'App'){ %>
-			return CACHE.get(path) locals
+			return renderFx locals
 			<% } else { %>
-			return @send await CACHE.get(path) locals
+			return @send renderFx locals
 			<% } %>
 		catch err
-			<% if(ele === 'App'){ %>
-			GError = @Error
-			<% } else { %>
-			GError = @app.Error
-			<% } %>
 			if err is 404
-				throw new GError 500, "View not found at: #{path}"
+				throw new GError 500, "View not found at: #{p1}, #{p2}"
 			else
 				throw new GError 500, "View Error at: #{path}", err
 <% } %>

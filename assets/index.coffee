@@ -40,8 +40,8 @@ class Render
 		# remove previous functions
 		app.removeProperties @fxes if @fxes
 		# generate functions
-		render = _renderGenApp app.CACHE, app.s[<%= settings.views %>]
-		ctxRender = _renderGenCtx app.CACHE, app.s[<%= settings.views %>]
+		render = _renderGenApp app.CACHE, app.s[<%= settings.views %>], app.Error
+		ctxRender = _renderGenCtx app.CACHE, app.s[<%= settings.views %>], app.Error
 		@fxes =
 			App:
 				render: render
