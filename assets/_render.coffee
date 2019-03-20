@@ -21,7 +21,7 @@ _renderGen<%=ele %>= (CACHE, viewsPath, GError)->
 				renderFx= await CACHE.get p1
 			catch err
 				# resolve without local
-				throw err unless err is 404 or !ctx.i18n
+				throw err unless err is 404 or !@i18n
 				p2= Path.resolve viewsPath, path
 				renderFx= await CACHE.get p2
 			# render
