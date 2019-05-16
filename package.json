@@ -1,6 +1,6 @@
 {
   "name": "gridfw-view-render",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "view render for gridfw",
   "main": "build/index.js",
   "scripts": {
